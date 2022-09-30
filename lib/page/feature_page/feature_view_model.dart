@@ -6,6 +6,7 @@ import 'package:android_tool/page/common/package_help_mixin.dart';
 import 'package:android_tool/widget/confirm_dialog.dart';
 import 'package:android_tool/widget/input_dialog.dart';
 import 'package:android_tool/widget/list_filter_dialog.dart';
+import 'package:android_tool/widget/remote_control_dialog.dart';
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
@@ -81,6 +82,9 @@ class FeatureViewModel extends BaseViewModel with PackageHelpMixin {
 
   /// 卸载应用
   void uninstallApk() async {
+    bool isConfirm = await showTipsDialog("确定卸载应用？") ?? false;
+    if (!isConfirm) return;
+
     var result = await execAdb([
       '-s',
       deviceId,
@@ -164,6 +168,9 @@ class FeatureViewModel extends BaseViewModel with PackageHelpMixin {
 
   /// 清除数据
   Future<void> clearAppData() async {
+    bool isConfirm = await showTipsDialog("确定清除App数据？") ?? false;
+    if (!isConfirm) return;
+
     await execAdb([
       '-s',
       deviceId,
@@ -535,6 +542,11 @@ class FeatureViewModel extends BaseViewModel with PackageHelpMixin {
 
   /// 查看设备Mac地址
   Future<void> getDeviceMac() async {
+    // 感谢简书网友：北京朝阳区精神病院院长 的分享BUG以及优化方案。
+    // 查看设备Mac地址
+    // 提供两种获取 设备Mac方法
+    // adb shell ip address show wlan0 | grep "link/ether" | awk '{printf $2}'
+    // adb -s deviceId shell "ip addr show wlan0 | grep 'link/ether '| cut -d' ' -f6"
     var result = await execAdb([
       '-s',
       deviceId,
@@ -792,6 +804,66 @@ class FeatureViewModel extends BaseViewModel with PackageHelpMixin {
     ]);
   }
 
+  /// 遥控器按键上
+  void pressRemoteUp() async {
+    await execAdb([
+      '-s',
+      deviceId,
+      'shell',
+      'input',
+      'keyevent',
+      '19',
+    ]);
+  }
+
+  /// 遥控器按键下
+  void pressRemoteDown() async {
+    await execAdb([
+      '-s',
+      deviceId,
+      'shell',
+      'input',
+      'keyevent',
+      '20',
+    ]);
+  }
+
+  /// 遥控器按键左
+  void pressRemoteLeft() async {
+    await execAdb([
+      '-s',
+      deviceId,
+      'shell',
+      'input',
+      'keyevent',
+      '21',
+    ]);
+  }
+
+  /// 遥控器按键右
+  void pressRemoteRight() async {
+    await execAdb([
+      '-s',
+      deviceId,
+      'shell',
+      'input',
+      'keyevent',
+      '22',
+    ]);
+  }
+
+  /// 遥控器按键OK
+  void pressRemoteOk() async {
+    await execAdb([
+      '-s',
+      deviceId,
+      'shell',
+      'input',
+      'keyevent',
+      '23',
+    ]);
+  }
+
   Color getColor(String name) {
     return colors[name.hashCode % colors.length];
   }
@@ -890,6 +962,21 @@ class FeatureViewModel extends BaseViewModel with PackageHelpMixin {
           onConfirm: () {
             cleanLocalData();
           },
+        );
+      },
+    );
+  }
+
+  void showRemoteControlDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return RemoteControlDialog(
+          onTapLeft: pressRemoteLeft,
+          onTapRight: pressRemoteRight,
+          onTapUp: pressRemoteUp,
+          onTapDown: pressRemoteDown,
+          onTapOk: pressRemoteOk,
         );
       },
     );
