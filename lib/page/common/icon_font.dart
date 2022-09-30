@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/// IconFont在线解析地址：http://blog.luckly-mjw.cn/tool-show/iconfont-preview/index.html
+
 class IconFont {
   IconFont._();
 
@@ -40,4 +42,8 @@ class IconFont {
   static const IconData swipeRight = IconData(0xe60a, fontFamily: "IconFont");
   static const IconData click = IconData(0xe6ca, fontFamily: "IconFont");
   static const IconData remoteControl = IconData(0xe697, fontFamily: "IconFont");
+  static const IconData copyFile = IconData(0xe6a6, fontFamily: "IconFont");
+  static const IconData copyScreenHot = IconData(0xe622, fontFamily: "IconFont");
+  static const IconData backTo = IconData(0xe601, fontFamily: "IconFont");
+
 }

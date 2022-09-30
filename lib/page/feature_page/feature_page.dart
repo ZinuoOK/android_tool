@@ -66,14 +66,14 @@ class _FeaturePageState extends BasePage<FeaturePage, FeatureViewModel> {
                                 },
                               ),
                               buttonView(
-                                IconFont.input,
+                                IconFont.cleanRerun,
                                 "设置全局代理",
                                 () {
                                   viewModel.setGlobalProxy();
                                 },
                               ),
                               buttonView(
-                                IconFont.currentActivity,
+                                IconFont.backTo,
                                 "清空全局代理",
                                 () {
                                   viewModel.cleanGlobalProxy();
@@ -85,14 +85,14 @@ class _FeaturePageState extends BasePage<FeaturePage, FeatureViewModel> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
                               buttonView(
-                                IconFont.install,
+                                IconFont.copyFile,
                                 "导出日志文件",
                                     () {
                                   viewModel.pullLocalLogs();
                                 },
                               ),
                               buttonView(
-                                IconFont.input,
+                                IconFont.apkPath,
                                 "导出数据库文件",
                                     () {
                                   viewModel.pullLocalDbs();
@@ -106,7 +106,7 @@ class _FeaturePageState extends BasePage<FeaturePage, FeatureViewModel> {
                                 },
                               ),
                               buttonView(
-                                IconFont.currentActivity,
+                                IconFont.clean,
                                 "清空设备数据",
                                     () {
                                   viewModel.cleanLocalDataHandle();
