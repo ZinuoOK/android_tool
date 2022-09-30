@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:android_tool/page/common/app.dart';
 import 'package:android_tool/page/common/base_view_model.dart';
 import 'package:android_tool/page/common/package_help_mixin.dart';
@@ -251,7 +253,22 @@ class FeatureViewModel extends BaseViewModel with PackageHelpMixin {
       );
     }
   }
+  /// 查看应用权限
+  Future<void> getAppAuth() async {
+    var appAuthList = await execAdb([
+      '-s',
+      deviceId,
+      'shell',
+      'dumpsys',
+      'package',
+      packageName,
+    ]);
 
+    showResultDialog(
+      // content: result != null && result.exitCode == 0 ? "保存成功" : "保存失败",
+      content: "敬请期待"
+    );
+  }
   /// 保存应用APK到电脑
   Future<void> saveAppApk() async {
     var apkFilePath = await execAdb([
@@ -709,5 +726,88 @@ class FeatureViewModel extends BaseViewModel with PackageHelpMixin {
 
   Color getColor(String name) {
     return colors[name.hashCode % colors.length];
+  }
+
+  /// 导出日志文件
+  Future<void> pullLocalLogs() async {
+    var path = await getDirectoryPath();
+    if (path == null || path.isEmpty) return;
+    var result = await execAdb([
+      '-s',
+      deviceId,
+      'pull',
+      '/sdcard/keruyun/logs/',
+      '$path/logs',
+    ]);
+
+    if (result != null && result.exitCode == 0) {
+      showResultDialog(content: "日志导出成功");
+    } else {
+      showResultDialog(content: "日志导出失败");
+    }
+  }
+
+  /// 导出数据库文件
+  Future<void> pullLocalDbs() async {
+    var path = await getDirectoryPath();
+    if (path == null || path.isEmpty) return;
+    var result = await execAdb([
+      '-s',
+      deviceId,
+      'pull',
+      '/sdcard/Android/data/com.shishike.calm/calm/databases/',
+      '$path/dbs',
+    ]);
+
+    if (result != null && result.exitCode == 0) {
+      showResultDialog(content: "数据库导出成功");
+    } else {
+      showResultDialog(content: "数据库导出失败");
+    }
+  }
+
+  /// 导出截图文件
+  Future<void> pullLocalScreenshots() async {
+    var path = await getDirectoryPath();
+    if (path == null || path.isEmpty) return;
+    var result = await execAdb([
+    '-s',
+    deviceId,
+    'pull',
+    '/sdcard/Screenshots/',
+    '$path/Screenshots',
+    ]);
+
+    if (result != null && result.exitCode == 0) {
+    showResultDialog(content: "截图导出成功");
+    } else {
+    showResultDialog(content: "截图导出失败");
+    }
+  }
+
+  /// 清空设备数据
+  Future<void> cleanLocalData() async {
+    var screen_result = await execAdb([
+      '-s',
+      deviceId,
+      'shell',
+      'rm',
+      '-rf',
+      '/sdcard/Screenshots/',
+    ]);
+
+    var logs_result = await execAdb([
+      '-s',
+      deviceId,
+      'shell',
+      'rm',
+      '-rf',
+      '/sdcard/keruyun/logs/',
+    ]);
+    if (logs_result != null && logs_result.exitCode == 0 && screen_result != null && screen_result.exitCode == 0) {
+      showResultDialog(content: "截图+日志目录清空成功");
+    } else {
+      showResultDialog(content: "截图+日志目录清空失败");
+    }
   }
 }

@@ -81,6 +81,39 @@ class _FeaturePageState extends BasePage<FeaturePage, FeatureViewModel> {
                               ),
                             ],
                           ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              buttonView(
+                                IconFont.install,
+                                "导出日志文件",
+                                    () {
+                                  viewModel.pullLocalLogs();
+                                },
+                              ),
+                              buttonView(
+                                IconFont.input,
+                                "导出数据库文件",
+                                    () {
+                                  viewModel.pullLocalDbs();
+                                },
+                              ),
+                              buttonView(
+                                IconFont.screenshot,
+                                "导出截图文件",
+                                    () {
+                                  viewModel.pullLocalScreenshots();
+                                },
+                              ),
+                              buttonView(
+                                IconFont.currentActivity,
+                                "清空设备数据",
+                                    () {
+                                  viewModel.cleanLocalData();
+                                },
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
@@ -191,10 +224,17 @@ class _FeaturePageState extends BasePage<FeaturePage, FeatureViewModel> {
                                   viewModel.saveAppApk();
                                 },
                               ),
-                              Expanded(
-                                flex: 1,
-                                child: Container(),
-                              )
+                              buttonView(
+                                IconFont.authorize,
+                                "查看权限(待上线)",
+                                    () {
+                                  viewModel.getAppAuth();
+                                },
+                              ),
+                              // Expanded(
+                              //   flex: 1,
+                              //   child: Container(),
+                              // )
                             ],
                           ),
                         ],

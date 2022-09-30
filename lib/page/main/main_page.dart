@@ -6,7 +6,6 @@ import 'package:android_tool/page/main/devices_model.dart';
 import 'package:android_tool/widget/adb_setting_dialog.dart';
 import 'package:android_tool/widget/text_view.dart';
 import 'package:desktop_drop/desktop_drop.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -46,7 +45,7 @@ class _MainPageState extends BasePage<MainPage, MainViewModel> {
                 devicesView(),
                 const SizedBox(height: 20),
                 // const Divider(height: 1),
-                // _leftItem("images/ic_devices_info.svg", "设备信息", 0),
+                _leftItem("images/ic_devices_info.svg", "设备信息", 0),
                 _leftItem("images/ic_quick_future.svg", "快捷功能", 1),
                 _leftItem("images/ic_folder.svg", "文件管理", 2),
                 _leftItem("images/ic_log.svg", "LogCat", 3),
@@ -147,7 +146,7 @@ class _MainPageState extends BasePage<MainPage, MainViewModel> {
                   device?.itemTitle ?? "未连接设备",
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
-                    color: Color(0xFF666666),
+                    color: Color(0xFFF10000),
                     fontSize: 12,
                   ),
                 ),
