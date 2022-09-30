@@ -471,10 +471,10 @@ class FeatureViewModel extends BaseViewModel with PackageHelpMixin {
       '-s',
       deviceId,
       'shell',
-      'ip addr show wlan0 | grep link/ether ',
+      'ip addr show wlan0 | grep link/ether |awk \'{print \$2}\'',
     ]);
     showResultDialog(
-      content: result != null && result.exitCode == 0 ? result.stdout.substring(15, 32) : "获取失败",
+      content: result != null && result.exitCode == 0 ? result.stdout : "获取失败",
     );
   }
 
