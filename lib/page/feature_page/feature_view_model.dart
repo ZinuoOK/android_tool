@@ -787,32 +787,6 @@ class FeatureViewModel extends BaseViewModel with PackageHelpMixin {
   }
 
   /// 清空设备数据
-  Future<void> cleanLocalData1() async {
-    var screen_result = await execAdb([
-      '-s',
-      deviceId,
-      'shell',
-      'rm',
-      '-rf',
-      '/sdcard/Screenshots/',
-    ]);
-
-    var logs_result = await execAdb([
-      '-s',
-      deviceId,
-      'shell',
-      'rm',
-      '-rf',
-      '/sdcard/keruyun/logs/',
-    ]);
-    if (logs_result != null && logs_result.exitCode == 0 && screen_result != null && screen_result.exitCode == 0) {
-      showResultDialog(content: "截图+日志目录清空成功");
-    } else {
-      showResultDialog(content: "截图+日志目录清空失败");
-    }
-  }
-
-  /// 安装apk
   void cleanLocalData() async {
     var screenResult = await execAdb([
       '-s',
