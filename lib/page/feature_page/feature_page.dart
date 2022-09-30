@@ -59,24 +59,24 @@ class _FeaturePageState extends BasePage<FeaturePage, FeatureViewModel> {
                                 },
                               ),
                               buttonView(
-                                IconFont.input,
-                                "输入文本",
-                                () {
-                                  viewModel.inputText();
-                                },
-                              ),
-                              buttonView(
                                 IconFont.screenshot,
                                 "截图保存到电脑",
-                                () {
+                                    () {
                                   viewModel.screenshot();
                                 },
                               ),
                               buttonView(
-                                IconFont.currentActivity,
-                                "查看当前Activity",
+                                IconFont.input,
+                                "设置全局代理",
                                 () {
-                                  viewModel.getForegroundActivity();
+                                  viewModel.setGlobalProxy();
+                                },
+                              ),
+                              buttonView(
+                                IconFont.currentActivity,
+                                "清空全局代理",
+                                () {
+                                  viewModel.cleanGlobalProxy();
                                 },
                               ),
                             ],
@@ -313,6 +313,40 @@ class _FeaturePageState extends BasePage<FeaturePage, FeatureViewModel> {
                               ),
                             ],
                           ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              buttonView(
+                                IconFont.currentActivity,
+                                "查看当前Activity",
+                                    () {
+                                  viewModel.getForegroundActivity();
+                                },
+                              ),
+                              Expanded(flex: 3, child: Container()),
+                              // buttonView(
+                              //   IconFont.macAddress,
+                              //   "查看Mac地址",
+                              //       () {
+                              //     viewModel.getDeviceMac();
+                              //   },
+                              // ),
+                              // buttonView(
+                              //   IconFont.restart,
+                              //   "重启手机",
+                              //       () {
+                              //     viewModel.reboot();
+                              //   },
+                              // ),
+                              // buttonView(
+                              //   IconFont.systemProperty,
+                              //   "查看系统属性",
+                              //       () {
+                              //     viewModel.getSystemProperty();
+                              //   },
+                              // ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
@@ -442,7 +476,14 @@ class _FeaturePageState extends BasePage<FeaturePage, FeatureViewModel> {
                                   viewModel.pressScreen();
                                 },
                               ),
-                              Expanded(flex: 3, child: Container()),
+                              buttonView(
+                                IconFont.input,
+                                "输入文本",
+                                    () {
+                                  viewModel.inputText();
+                                },
+                              ),
+                              Expanded(flex: 2, child: Container()),
                             ],
                           ),
                         ],

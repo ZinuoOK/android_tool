@@ -373,6 +373,74 @@ class FeatureViewModel extends BaseViewModel with PackageHelpMixin {
     }
   }
 
+  /// 输入代理配置
+  Future<void> setGlobalProxy() async {
+    var text = await showInputDialog();
+    if (text != null && text.isNotEmpty) {
+      var result = await execAdb([
+        '-s',
+        deviceId,
+        'shell',
+        'settings',
+        'put',
+        'global',
+        'http_proxy',
+        text,
+      ]);
+
+      showResultDialog(
+        content: result != null && result.exitCode == 0
+            ? "配置代理成功，地址"+text
+            : "配置代理失败",
+      );
+    } else {
+      showResultDialog(
+        content: "代理地址未填写或格式错误"
+      );
+    }
+  }
+
+  ///清空全局代理
+  Future<void> cleanGlobalProxy() async {
+
+    var result = await execAdb([
+      '-s',
+      deviceId,
+      'shell',
+      'settings',
+      'delete',
+      'global',
+      'http_proxy',
+    ]);
+
+    await execAdb([
+      '-s',
+      deviceId,
+      'shell',
+      'settings',
+      'delete',
+      'global',
+      'global_http_proxy_host',
+    ]);
+
+    await execAdb([
+      '-s',
+      deviceId,
+      'shell',
+      'settings',
+      'delete',
+      'global',
+      'global_http_proxy_port',
+    ]);
+
+    showResultDialog(
+      content: result != null && result.exitCode == 0
+          ? "清空代理配置成功，请重启设备"
+          : "清空代理配置失败",
+    );
+
+  }
+
   /// 输入文本
   Future<void> inputText() async {
     var text = await showInputDialog();
@@ -522,8 +590,8 @@ class FeatureViewModel extends BaseViewModel with PackageHelpMixin {
   }
 
   Future<String?> showInputDialog({
-    String title = "输入文本",
-    String hintText = "输入文本",
+    String title = "按ip:port格式配置",
+    String hintText = "",
   }) async {
     return await showDialog<String>(
       context: context,
