@@ -90,7 +90,6 @@ class _MainPageState extends BasePage<MainPage, MainViewModel> {
     } else {
       return Container();
     }
-    ;
   }
 
   Widget _leftItem(String image, String name, int index) {

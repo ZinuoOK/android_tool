@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:android_tool/page/common/app.dart';
 import 'package:android_tool/page/common/base_view_model.dart';
@@ -11,7 +10,6 @@ import 'package:desktop_drop/desktop_drop.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:process_run/shell_run.dart';
 
 class FeatureViewModel extends BaseViewModel with PackageHelpMixin {
@@ -263,7 +261,7 @@ class FeatureViewModel extends BaseViewModel with PackageHelpMixin {
   }
   /// 查看应用权限
   Future<void> getAppAuth() async {
-    var appAuthList = await execAdb([
+    await execAdb([
       '-s',
       deviceId,
       'shell',
@@ -534,7 +532,6 @@ class FeatureViewModel extends BaseViewModel with PackageHelpMixin {
       for (var value in outLines) {
         value = value.substring(value.indexOf("addr:"), value.length);
         ip += value.substring(0, value.indexOf(" ")) + "\n";
-        print(value);
       }
       showResultDialog(content: ip);
     }

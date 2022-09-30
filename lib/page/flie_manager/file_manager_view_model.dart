@@ -118,18 +118,17 @@ class FileManagerViewModel extends BaseViewModel {
   }
 
   void onDragUpdated(DropEventDetails data, int index) {
-    print("onDragUpdated");
     isDragging = true;
   }
 
   void onDragExited(DropEventDetails data, int index) {
-    print("onDragExited");
+    // print("onDragExited");
     isDragging = false;
     setItemSelectState(index, false);
   }
 
   void onDragEntered(DropEventDetails data, int index) {
-    print("onDragEntered");
+    // print("onDragEntered");
     isDragging = true;
     setItemSelectState(index, true);
   }

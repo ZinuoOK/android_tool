@@ -1,3 +1,5 @@
+// ignore_for_file: implementation_imports
+
 import 'dart:io';
 
 import 'package:android_tool/page/common/app.dart';

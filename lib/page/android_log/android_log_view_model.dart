@@ -113,7 +113,7 @@ class AndroidLogViewModel extends BaseViewModel with PackageHelpMixin {
 
   void listenerLog() {
     String level = filterLevelViewModel.selectValue?.value ?? "";
-    var list = ["-s", deviceId, "logcat", "$level"];
+    var list = ["-s", deviceId, "logcat", level];
     if (isFilterPackage) {
       list.add("--pid=$pid");
     }
@@ -177,7 +177,7 @@ class AndroidLogViewModel extends BaseViewModel with PackageHelpMixin {
       "-s",
       deviceId,
       "shell",
-      "ps | grep ${packageName} | awk '{print \$2}'"
+      "ps | grep $packageName | awk '{print \$2}'"
     ]);
     if (result == null) {
       return "";

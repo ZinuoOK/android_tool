@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:android_tool/page/common/app.dart';
 import 'package:android_tool/widget/confirm_dialog.dart';
 import 'package:file_selector/file_selector.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:process_run/shell_run.dart';
 
@@ -52,7 +53,9 @@ class BaseViewModel extends ChangeNotifier {
       return await shell.runExecutableArguments(executable, arguments,
           onProcess: onProcess);
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       return null;
     } finally {
       setLoading(false, text: "");

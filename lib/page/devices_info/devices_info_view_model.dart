@@ -12,7 +12,7 @@ class DevicesInfoViewModel extends FeatureViewModel {
   ) : super(context, deviceId);
 
   Future<void> getScreenshot() async {
-    PaintingBinding.instance?.imageCache?.clear();
+    PaintingBinding.instance.imageCache.clear();
     var directory = await getTemporaryDirectory();
 
     var path = directory.path + "/screenshot.png";
