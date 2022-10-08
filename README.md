@@ -1,3 +1,26 @@
+# 项目来源
+该项目Fork于GitHub：[android_tool](https://github.com/EaniaHuui/android_tool) ，再进行针对性的功能开发
+
+## 基本功能点
+
+* 基本功能
+  * 应用安装与卸载
+  * 截图保存
+  * 日志、数据库、截图文件导出与清理
+  * 系统属性查看，包括MAC地址，IP地址，设备信息
+  * 应用启动，停止
+  * 全局代理设置与清空
+* LogCat日志
+
+功能截图
+![](screenshot/img.png)
+
+----
+****************分割线
+
+----
+
+
 # android_tool
 
 作为一个Android开发者，在开发过程中经常会用到ADB命令，每次进行手敲都觉得麻烦得很，尤其是有些命令忘记了，还得去查，浪费时间，影响效率，于是用Flutter把一些常用的ADB命令封装成一个应用。
@@ -45,6 +68,5 @@ flutter config --enable-linux-desktop
 
 
 ## 上链接
-GitHub地址：[android_tool](https://github.com/EaniaHuui/android_tool)  
 下载试用：[release](https://github.com/EaniaHuui/android_tool/releases)
 
